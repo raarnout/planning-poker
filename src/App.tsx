@@ -3,16 +3,19 @@ import "./App.css";
 import { db } from './persistence/firebase';
 import { collection, getDocs } from 'firebase/firestore';
 
+interface Game {
+  id: string;
+  title: string;
+}
+
 const App = () => {
-  const [games, setGames] = useState<{id: string, title: string;}[]>([]);
+  const [games, setGames] = useState<Game[]>([]);
   const gamesCollectionRef = collection(db, "games");
 
   useEffect(() => {
     const getGames = async () => {
       const data = await getDocs(gamesCollectionRef);
-      console.log(data);
-      console.log(data.docs)
-      setGames(data.docs.map((doc) => ({ title: doc.data().title, id: doc.id })));
+      setGames(data.docs.map((doc) => ({ id: doc.id, title:doc.data().title })));
     }
 
     getGames();
@@ -20,9 +23,10 @@ const App = () => {
 
   return (
     <div className="App">
+      <button>create game</button>
       <h1>planning-poker</h1>
       {games.map((game) => {
-        return (<div><h2>Title: {game.title}</h2></div>)
+        return (<div key={game.id}><h2>Title: {game.title}</h2></div>)
       })}
     </div>
   );
