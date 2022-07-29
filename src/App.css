@@ -1,0 +1,19 @@
+html,
+body {
+  margin: 0;
+  font-size: 16px;
+  line-height: 2em;
+  font-family: "Amiko", Helvetica, Arial, Lucida, sans-serif;
+  font-weight: 400;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  color: #ed1c24;
+  font-family: "Saira", Helvetica, Arial, Lucida, sans-serif;
+  margin: 0;
+}
