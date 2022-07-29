@@ -3,13 +3,13 @@ import "./App.css";
 import { db } from './persistence/firebase';
 import { collection, getDocs } from 'firebase/firestore';
 
-interface Game {
+interface IGame {
   id: string;
   title: string;
 }
 
 const App = () => {
-  const [games, setGames] = useState<Game[]>([]);
+  const [games, setGames] = useState<IGame[]>([]);
   const gamesCollectionRef = collection(db, "games");
 
   useEffect(() => {
