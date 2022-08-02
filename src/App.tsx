@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import "./App.css";
-import { db } from './persistence/firebase';
-import { collection, getDocs } from 'firebase/firestore';
+import { db } from "./persistence/firebase";
+import { collection, getDocs } from "firebase/firestore";
 
 interface IGame {
   id: string;
@@ -11,19 +11,24 @@ interface IGame {
 const getGames = async () => {
   const gamesCollectionRef = collection(db, "games");
   const data = await getDocs(gamesCollectionRef);
-  const newData = data.docs.map((doc) => ({ id: doc.id, title:doc.data().title }));
+  const newData = data.docs.map((doc) => ({
+    id: doc.id,
+    title: doc.data().title,
+  }));
   return newData;
-}
+};
 
 const App = () => {
   const [games, setGames] = useState<IGame[]>([]);
-  
+
   useEffect(() => {
-    getGames().then((games) => {
-      setGames(games);
-    }).catch(error => {
-      console.log(error)
-    });
+    getGames()
+      .then((games) => {
+        setGames(games);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
   }, []);
 
   return (
@@ -31,10 +36,14 @@ const App = () => {
       <button>create game</button>
       <h1>planning-poker</h1>
       {games.map((game) => {
-        return (<div key={game.id}><h2>Title: {game.title}</h2></div>)
+        return (
+          <div key={game.id}>
+            <h2>Title: {game.title}</h2>
+          </div>
+        );
       })}
     </div>
   );
-}
+};
 
 export default App;
