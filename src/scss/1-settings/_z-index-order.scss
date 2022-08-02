@@ -1,0 +1,10 @@
+/*
+ A sass map of elements used in combination with the get-z-index functio (found in 2-tools/functions).
+ First elements in the map does have an lower z-index order than the last elements in the map.
+ */
+
+$z-index-order: (
+	'.layer-2',
+	'.layer-0',
+	'.layer-1',
+);

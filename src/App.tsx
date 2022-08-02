@@ -33,9 +33,9 @@ const App = () => {
 
 	return (
 		<div className="App">
-			{games.map(game => {
+			{games.map((game, index) => {
 				return (
-					<div key={game.id}>
+					<div key={game.id} className={'layer layer-' + index}>
 						<h2>Title: {game.title}</h2>
 					</div>
 				);
@@ -43,5 +43,4 @@ const App = () => {
 		</div>
 	);
 };
-
 export default App;
