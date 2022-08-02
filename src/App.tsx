@@ -8,17 +8,22 @@ interface IGame {
   title: string;
 }
 
+const getGames = async () => {
+  const gamesCollectionRef = collection(db, "games");
+  const data = await getDocs(gamesCollectionRef);
+  const newData = data.docs.map((doc) => ({ id: doc.id, title:doc.data().title }));
+  return newData;
+}
+
 const App = () => {
   const [games, setGames] = useState<IGame[]>([]);
-  const gamesCollectionRef = collection(db, "games");
-
+  
   useEffect(() => {
-    const getGames = async () => {
-      const data = await getDocs(gamesCollectionRef);
-      setGames(data.docs.map((doc) => ({ id: doc.id, title:doc.data().title })));
-    }
-
-    getGames();
+    getGames().then((games) => {
+      setGames(games);
+    }).catch(error => {
+      console.log(error)
+    });
   }, []);
 
   return (
