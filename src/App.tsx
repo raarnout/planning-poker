@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import "./App.css";
+import "./scss/styles.scss";
 import { db } from "./persistence/firebase";
 import { collection, getDocs } from "firebase/firestore";
 
@@ -33,8 +33,6 @@ const App = () => {
 
   return (
     <div className="App">
-      <button>create game</button>
-      <h1>planning-poker</h1>
       {games.map((game) => {
         return (
           <div key={game.id}>
