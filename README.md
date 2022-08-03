@@ -4,10 +4,10 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 
 ## Installation
 
-Install the project via Yarn
+Install the project via Yarn.  
 `yarn install`
 
-or use NPM
+or use NPM  
 `npm install`
 
 ## Available Scripts
@@ -26,7 +26,7 @@ When using `npm start` you can run into the following issue.
 
 ```Module not found: Error: You attempted to import /Users/ronaldaarnoutse/git/planning-poker/node_modules/react-refresh/runtime.js which falls outside of the project src/ directory. Relative imports outside of src/ are not supported.You can either move it inside src/, or add a symlink to it from project's node_modules/.```
 
-If so, find follow [this link](https://github.com/storybookjs/storybook/issues/17049#issuecomment-1202121109) to solve the issue, or use Yarn.
+If so, follow [this link](https://github.com/storybookjs/storybook/issues/17049#issuecomment-1202121109) to solve the issue, or use Yarn.
 
 ### `npm test`
 
