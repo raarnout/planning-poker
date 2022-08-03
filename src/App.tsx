@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import './scss/styles.scss';
-import { db } from './persistence/firebase';
+import { db } from './api/firebase';
 import { collection, getDocs } from 'firebase/firestore';
 
 interface IGame {
