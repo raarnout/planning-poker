@@ -10,6 +10,14 @@ Install the project via Yarn.
 or use NPM  
 `npm install`
 
+## Firebase Setup.
+
+1. Setup a firebase project with a `Firestore Database`.
+2. To the `Firestore Database` add a 'games' `collection`.
+3. Inside 'games' `collection` add a document with an Document-ID which is generated via 'Auto-ID' button.
+4. For each 'games' document which is created, add an 'title' field of type 'string' with a random value.
+5. Create a `.env.development.local` file from the `.env.example` and fill in the global variables with firebase config which can be found in the 'Project Settings' of your firebase project.
+
 ## Available Scripts
 
 In the project directory, you can run:  
