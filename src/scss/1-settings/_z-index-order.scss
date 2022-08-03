@@ -3,8 +3,4 @@
  First elements in the map does have an lower z-index order than the last elements in the map.
  */
 
-$z-index-order: (
-	'.layer-2',
-	'.layer-0',
-	'.layer-1',
-);
+$z-index-order: ('.layer-2', '.layer-0', '.layer-1');
