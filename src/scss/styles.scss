@@ -6,30 +6,8 @@
 @import '6-components/all';
 @import '7-trumps/all';
 
-.app {
-  width: 100%;
-  height: 40px;
-}
-
-.layer {
-  position: absolute;
-  top: 0;
-  bottom: 0;
-  left: 0;
-  right: 0;
-
-  &-0 {
-    background-color: red;
-    z-index: get-z-index();
-  }
-
-  &-1 {
-    background-color: orange;
-    z-index: get-z-index();
-  }
-
-  &-2 {
-    background-color: yellow;
-    z-index: get-z-index();
-  }
+.App {
+  width: 50rem;
+  height:  10rem;
+  background-color: red;
 }
