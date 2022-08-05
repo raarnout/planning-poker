@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import './scss/styles.scss';
 import { db } from './api/firebase';
 import { collection, getDocs } from 'firebase/firestore';
+import { Container } from './layout-components';
 
 interface IGame {
 	id: string;
@@ -32,14 +33,34 @@ const App = () => {
 	}, []);
 
 	return (
-		<div className="App">
-			{games.map((game, index) => {
-				return (
-					<div key={game.id} className={'layer layer-' + index}>
-						<h2>Title: {game.title}</h2>
-					</div>
-				);
-			})}
+		<div>
+			<Container maxWidth="sm" bgColor="#FF0000">
+				{games.map((game, index) => {
+					return (
+						<div key={game.id} className={'layer layer-' + index}>
+							<h2>Title: {game.title}</h2>
+						</div>
+					);
+				})}
+			</Container>
+			<Container maxWidth="md" bgColor="#00FF00">
+				{games.map((game, index) => {
+					return (
+						<div key={game.id} className={'layer layer-' + index}>
+							<h2>Title: {game.title}</h2>
+						</div>
+					);
+				})}
+			</Container>
+			<Container maxWidth="lg" bgColor="#0000FF">
+				{games.map((game, index) => {
+					return (
+						<div key={game.id} className={'layer layer-' + index}>
+							<h2>Title: {game.title}</h2>
+						</div>
+					);
+				})}
+			</Container>
 		</div>
 	);
 };
