@@ -1,5 +1,3 @@
-import { MouseEventHandler } from 'react';
-
 export enum ButtonVariant {
 	PRIMARY = 'primary',
 	SECONDARY = 'secondary',
@@ -25,7 +23,7 @@ export enum ButtonSize {
 
 export interface ButtonProps {
 	label: string;
-	onClick: MouseEventHandler<HTMLButtonElement>;
+	onClick: () => void;
 	type?: ButtonType;
 	variant?: ButtonVariant;
 	size?: ButtonSize;

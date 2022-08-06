@@ -1,21 +1,15 @@
-import { Color } from '../../../types/color';
-import { MouseEvent } from 'react';
 import Button from '../../1-atoms/Button';
+import { createNewGame } from '../../../api/firebase';
 
-interface MainProps {
-	bgColor?: Color;
-}
+const createGame = async () => {
+	console.log('create new game');
+	createNewGame();
+};
 
-export const Main = (props: MainProps) => {
-	const clickHandler = (event: MouseEvent<HTMLButtonElement>) => {
-		event.preventDefault();
-		const button: HTMLButtonElement = event.currentTarget;
-		console.log('start new game', button);
-	};
-
+export const Main = () => {
 	return (
 		<section id="main" className="container-fluid text-center">
-			<Button label="New Game" onClick={clickHandler}></Button>
+			<Button label="start new Game" onClick={createGame}></Button>
 		</section>
 	);
 };
