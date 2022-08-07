@@ -1,15 +1,18 @@
-import Button from '../../1-atoms/Button';
 import { createNewGame } from '../../../api/firebase';
+import { useEffect } from 'react';
 
 const createGame = async () => {
-	console.log('create new game');
 	createNewGame();
 };
 
-export const Main = () => {
+export const New = () => {
+	useEffect(() => {
+		createGame();
+	});
+
 	return (
 		<section id="main" className="container-fluid text-center">
-			<Button label="start new Game" onClick={createGame}></Button>
+			new
 		</section>
 	);
 };
