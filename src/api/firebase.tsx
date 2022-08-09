@@ -1,10 +1,29 @@
-// import { db } from './firebase-config';
-// import { collection, addDoc } from 'firebase/firestore';
+import { db } from './firebase-config';
+import {
+	addDoc,
+	collection,
+	CollectionReference,
+	DocumentData
+} from 'firebase/firestore';
 
-// const gamesCollectionRef = collection(db, 'games');
+type DocPath = 'games';
+type DocData = GameData;
 
-export const createNewGame = async () => {
-	// const data: any = await addDoc(gamesCollectionRef, {});
-	// console.log(data.id);
-	console.log('create new game');
+const getCollectionRef = (
+	docPath: string
+): CollectionReference<DocumentData> => {
+	return collection(db, docPath);
+};
+
+export type GameData = {
+	id?: string;
+	title: string;
+};
+
+export const createDoc = async (
+	docPath: DocPath,
+	data: DocData
+): Promise<string> => {
+	const docRef = await addDoc(getCollectionRef(docPath), data);
+	return docRef.id;
 };

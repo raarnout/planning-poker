@@ -1,24 +1,36 @@
-import { createNewGame } from '../../../api/firebase';
+import { FormEvent, useState } from 'react';
 import Button, { ButtonType } from '../../1-atoms/Button';
-
-const createGame = async () => {
-	createNewGame();
-};
+import { createDoc } from '../../../api/firebase';
+import { useNavigate } from 'react-router-dom';
 
 export const New = () => {
+	const navigate = useNavigate();
+	const [title, setTitle] = useState('');
+
+	const handleChangeTitle = (event: FormEvent<HTMLInputElement>) => {
+		event.preventDefault();
+		setTitle(event.currentTarget.value);
+	};
+
+	const create = async () => {
+		const gameId: string = await createDoc('games', { title });
+		navigate(`/${gameId}`);
+	};
+
 	return (
 		<section id="main" className="container-fluid text-center">
 			<div>
-				<span>Title</span> <input></input>
-			</div>
-			<div>
-				<span>Voting System</span>
-				<input></input>
+				<span>Title</span>
+				<input
+					placeholder="Title..."
+					value={title}
+					onChange={handleChangeTitle}
+				></input>
 			</div>
 			<Button
 				label={'Create Game'}
 				type={ButtonType.SUBMIT}
-				onClick={createGame}
+				onClick={create}
 			></Button>
 		</section>
 	);
