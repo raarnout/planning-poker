@@ -3,7 +3,9 @@ import {
 	addDoc,
 	collection,
 	CollectionReference,
-	DocumentData
+	doc,
+	DocumentData,
+	getDoc
 } from 'firebase/firestore';
 
 type DocPath = 'games';
@@ -26,4 +28,10 @@ export const createDoc = async (
 ): Promise<string> => {
 	const docRef = await addDoc(getCollectionRef(docPath), data);
 	return docRef.id;
+};
+
+export const isValidGameId = async (id: string): Promise<boolean> => {
+	const docRef = await doc(db, 'games', id);
+	const docSnap = await getDoc(docRef);
+	return docSnap.exists();
 };
