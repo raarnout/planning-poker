@@ -16,6 +16,14 @@ export const Home = () => {
 	const navigate = useNavigate();
 	const param = useParams();
 
+	/*
+	 * react-router-dom history.replace() does refresh the page sometimes.
+	 * To avoid this, we use windows.history.replaceState();
+	 */
+	const removeIdFromURL = () => {
+		window.history.replaceState(null, 'home', '/');
+	};
+
 	useEffect(() => {
 		if (param?.id) {
 			setPageState(PageState.LOADING);
@@ -23,6 +31,9 @@ export const Home = () => {
 				const isValid = await isValidGameId(param.id as string);
 				const pageState = isValid ? PageState.EXISTING : PageState.NEW;
 				setPageState(pageState);
+				if (pageState === PageState.NEW) {
+					removeIdFromURL();
+				}
 			};
 
 			fetchData().catch(() => setPageState(PageState.ERROR));

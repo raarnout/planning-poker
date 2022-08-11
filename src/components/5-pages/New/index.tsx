@@ -1,4 +1,4 @@
-import { FormEvent, useState } from 'react';
+import { FormEvent, Fragment, useState } from 'react';
 import Button, { ButtonType } from '../../1-atoms/Button';
 import { createDoc } from '../../../api/firebase';
 import { useNavigate } from 'react-router-dom';
@@ -18,7 +18,7 @@ export const New = () => {
 	};
 
 	return (
-		<section id="main" className="container-fluid text-center">
+		<Fragment>
 			<div>
 				<span>Title</span>
 				<input
@@ -32,6 +32,6 @@ export const New = () => {
 				type={ButtonType.SUBMIT}
 				onClick={create}
 			></Button>
-		</section>
+		</Fragment>
 	);
 };
