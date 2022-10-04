@@ -20,9 +20,15 @@ const getCollectionRef = (
 export type GameData = {
 	id?: string;
 	title: string;
+    users: Array<string>;
 };
 
-export const createDoc = async (
+export type UserData = {
+	id?: string;
+	name: string;
+};
+
+export const createGame = async (
 	docPath: DocPath,
 	data: DocData
 ): Promise<string> => {

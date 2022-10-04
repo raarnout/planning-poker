@@ -1,7 +1,7 @@
 import Button from '../../1-atoms/Button';
 import PokerGame from '../PokerGame';
 import { useNavigate, useParams } from 'react-router-dom';
-import { isValidGameId } from '../../../api/firebase';
+import { isValidGameId } from '../../../api/games';
 import { useEffect, useState } from 'react';
 
 enum PageState {
