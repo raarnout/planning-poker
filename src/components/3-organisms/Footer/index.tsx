@@ -1,5 +1,4 @@
-import React from 'react';
-import { Color } from '../../../types/color';
+import { Color } from '../../../constants/types/color';
 
 interface FooterProps {
 	bgColor?: Color;

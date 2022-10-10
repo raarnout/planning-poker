@@ -23,11 +23,6 @@ export type GameData = {
     users: Array<string>;
 };
 
-export type UserData = {
-	id?: string;
-	name: string;
-};
-
 export const createGame = async (
 	docPath: DocPath,
 	data: DocData
