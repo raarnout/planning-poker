@@ -22,7 +22,7 @@ export const New = () => {
 	};
 
 	const handleDropdownChanged = (event: FormEvent<HTMLSelectElement>) => {
-		console.log('handleDropdownChanged', event);
+		console.log('handleDropdownChanged', event.currentTarget.value);
 	};
 
 	const create = async () => {
