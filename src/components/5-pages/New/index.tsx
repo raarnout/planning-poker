@@ -5,6 +5,7 @@ import { addUser } from '../../../persistence/users';
 import { addGame } from '../../../persistence/games';
 import { useNavigate } from 'react-router-dom';
 import { VotingSystem } from '../../../constants/enums/voting-systems';
+import { Roles } from '../../../constants/enums/roles';
 
 const getVotingValues = (system: string) => {
 	let votingValues = '';
@@ -44,14 +45,15 @@ export const New = () => {
 
 	const create = async () => {
 		const userKey = await addUser({
-			name: username
+			name: username,
+			role: Roles.HOST
 		});
 
 		if (userKey === null) return;
 
 		const gameKey = await addGame({
 			title,
-			host: userKey,
+			users: [userKey],
 			voting: getVotingValues(voting)
 		});
 		navigate(`/${gameKey}`);

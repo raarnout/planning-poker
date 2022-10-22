@@ -3,6 +3,7 @@ import { db } from './firebase';
 
 type User = {
 	name: string;
+	role: string;
 };
 
 const usersRef = ref(db, 'users');

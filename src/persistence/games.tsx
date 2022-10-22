@@ -3,7 +3,7 @@ import { db } from './firebase';
 
 type Game = {
 	title: string;
-	host: string;
+	users: Array<string>;
 	voting: string;
 };
 
