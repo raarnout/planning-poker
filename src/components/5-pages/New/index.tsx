@@ -22,14 +22,9 @@ export const New = () => {
 		setUsername(event.currentTarget.value);
 	};
 
-<<<<<<< HEAD
 	const handleDropdownChanged = (event: ChangeEvent<HTMLSelectElement>) => {
 		event.preventDefault();
 		setVotingSystem(event.currentTarget.value);
-=======
-	const handleDropdownChanged = (event: FormEvent<HTMLSelectElement>) => {
-		console.log('handleDropdownChanged', event.currentTarget.value);
->>>>>>> cfeee526d6db9c2b6159cafb522ac9ca1860d2f4
 	};
 
 	const create = async () => {
