@@ -1,8 +1,8 @@
-import { FormEvent, Fragment, useEffect, useState } from 'react';
+import { ChangeEvent, FormEvent, Fragment, useEffect, useState } from 'react';
 import Button, { ButtonType } from '../../1-atoms/Button';
 import DropDown, { Options } from '../../1-atoms/Dropdown';
-import { createGame } from '../../../api/games';
-import { createUser } from '../../../api/users';
+import { addUser } from '../../../persistence/users';
+import { addGame } from '../../../persistence/games';
 import { useNavigate } from 'react-router-dom';
 
 export const New = () => {
@@ -10,6 +10,7 @@ export const New = () => {
 	const [title, setTitle] = useState('');
 	const [username, setUsername] = useState('');
 	const [disabled, setDisabled] = useState(true);
+	const [votingSystem, setVotingSystem] = useState('0,1,2,3,5,8,13,21,34,55');
 
 	const handleChangeTitle = (event: FormEvent<HTMLInputElement>) => {
 		event.preventDefault();
@@ -21,25 +22,42 @@ export const New = () => {
 		setUsername(event.currentTarget.value);
 	};
 
-	const handleDropdownChanged = (event: FormEvent<HTMLSelectElement>) => {
-		console.log('handleDropdownChanged', event);
+	const handleDropdownChanged = (event: ChangeEvent<HTMLSelectElement>) => {
+		event.preventDefault();
+		setVotingSystem(event.currentTarget.value);
 	};
 
 	const create = async () => {
-		const userId: string = await createUser({
-			name: username,
-			role: 'HOST'
+		const userKey = await addUser({
+			name: username
 		});
-		console.log(userId);
-		const users = [userId];
-		const gameId: string = await createGame('games', { title, users });
-		navigate(`/${gameId}`);
+
+		if (userKey === null) return;
+
+		const gameKey = await addGame({
+			title,
+			host: userKey,
+			votingSystem
+		});
+		navigate(`/${gameKey}`);
 	};
 
 	const votingOptions: Array<Options> = [
-		{ text: '1,2,3,5,8', key: 'one', value: 'one' },
-		{ text: '1,2,4,8,16', key: 'two', value: 'two' },
-		{ text: 'xs,s,m,l,xl', key: 'three', value: 'three' }
+		{
+			text: 'Fibonacci',
+			key: 'fibonacci',
+			value: '0,1,2,3,5,8,13,21,34,55'
+		},
+		{
+			text: 'Modified Fibonacci',
+			key: 'modified-fibonacci',
+			value: '0,0.5,1,2,3,5,8,13,20,40'
+		},
+		{
+			text: 'T-Shirt',
+			key: 't-shirt',
+			value: 'xxs,xs,s,m,l,xl,xxl'
+		}
 	];
 
 	useEffect(() => {

@@ -1,8 +1,8 @@
+import { useNavigate, useParams } from 'react-router-dom';
+import { useEffect, useState } from 'react';
 import Button from '../../1-atoms/Button';
 import PokerGame from '../PokerGame';
-import { useNavigate, useParams } from 'react-router-dom';
-import { isValidGameId } from '../../../api/games';
-import { useEffect, useState } from 'react';
+import { isGameExists } from '../../../persistence/games';
 
 enum PageState {
 	LOADING = 0,
@@ -28,8 +28,8 @@ export const Home = () => {
 		if (param?.id) {
 			setPageState(PageState.LOADING);
 			const fetchData = async () => {
-				const isValid = await isValidGameId(param.id as string);
-				const pageState = isValid ? PageState.EXISTING : PageState.NEW;
+				const isExisting = await isGameExists(param.id as string);
+				const pageState = isExisting ? PageState.EXISTING : PageState.NEW;
 				setPageState(pageState);
 				if (pageState === PageState.NEW) {
 					removeIdFromURL();

@@ -1,7 +1,9 @@
+import { ChangeEvent, useId } from 'react';
+
 export interface DropDownProps {
 	label: string;
 	options: Array<Options>;
-	onChange: () => void;
+	onChange: (event: ChangeEvent<HTMLSelectElement>) => void;
 }
 
 export type Options = {
@@ -13,9 +15,10 @@ export type Options = {
 /**
  * Primary UI component for user interaction
  */
-const DropDown = ({ label, options }: DropDownProps) => {
+const DropDown = ({ label, options, onChange }: DropDownProps) => {
+	const id = useId();
 	return (
-		<label>
+		<label key={`dropdown-${id}`}>
 			{label}
 			<select value={label} onChange={onChange}>
 				{options.map(option => (
