@@ -4,7 +4,7 @@ import { db } from './firebase';
 type Game = {
 	title: string;
 	host: string;
-	votingSystem: string;
+	voting: string;
 };
 
 const gamesRef = ref(db, 'games');
@@ -17,9 +17,13 @@ const addGame = async (gameData: Game) => {
 
 const isGameExists = async (gameKey: string) => {
 	let isExisting = false;
-	await get(child(gamesRef, `/${gameKey}`)).then(snapshot => {
-		isExisting = snapshot.exists();
-	});
+	await get(child(gamesRef, `/${gameKey}`))
+		.then(snapshot => {
+			isExisting = snapshot.exists();
+		})
+		.catch(error => {
+			console.error(error);
+		});
 	return isExisting;
 };
 

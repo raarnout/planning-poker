@@ -1,30 +1,45 @@
-import { ChangeEvent, FormEvent, Fragment, useEffect, useState } from 'react';
+import { FormEvent, Fragment, useEffect, useState } from 'react';
 import Button, { ButtonType } from '../../1-atoms/Button';
 import DropDown, { Options } from '../../1-atoms/Dropdown';
 import { addUser } from '../../../persistence/users';
 import { addGame } from '../../../persistence/games';
 import { useNavigate } from 'react-router-dom';
+import { VotingSystem } from '../../../constants/enums/voting-systems';
+
+const getVotingValues = (system: string) => {
+	let votingValues = '';
+	switch (system) {
+		case VotingSystem.MODIFIED_FIBONACCI:
+			votingValues = '0,0.5,1,2,3,5,8,13,20,40';
+			break;
+		case VotingSystem.T_SHIRT:
+			votingValues = '0,0.5,1,2,3,5,8,13,20,40';
+			break;
+		default:
+			votingValues = 'xxs,xs,s,m,l,xl,xxl';
+	}
+	return votingValues;
+};
 
 export const New = () => {
 	const navigate = useNavigate();
 	const [title, setTitle] = useState('');
 	const [username, setUsername] = useState('');
 	const [disabled, setDisabled] = useState(true);
-	const [votingSystem, setVotingSystem] = useState('0,1,2,3,5,8,13,21,34,55');
+	const [voting, setVoting] = useState(VotingSystem.FIBONACCI as string);
 
-	const handleChangeTitle = (event: FormEvent<HTMLInputElement>) => {
+	const handleTitleChanged = (event: FormEvent<HTMLInputElement>) => {
 		event.preventDefault();
 		setTitle(event.currentTarget.value);
 	};
 
-	const handleChangeUsername = (event: FormEvent<HTMLInputElement>) => {
+	const handleUsernameChanged = (event: FormEvent<HTMLInputElement>) => {
 		event.preventDefault();
 		setUsername(event.currentTarget.value);
 	};
 
-	const handleDropdownChanged = (event: ChangeEvent<HTMLSelectElement>) => {
-		event.preventDefault();
-		setVotingSystem(event.currentTarget.value);
+	const handleVotingChanged = (voting: string) => {
+		setVoting(voting);
 	};
 
 	const create = async () => {
@@ -37,26 +52,26 @@ export const New = () => {
 		const gameKey = await addGame({
 			title,
 			host: userKey,
-			votingSystem
+			voting: getVotingValues(voting)
 		});
 		navigate(`/${gameKey}`);
 	};
 
 	const votingOptions: Array<Options> = [
 		{
-			text: 'Fibonacci',
-			key: 'fibonacci',
-			value: '0,1,2,3,5,8,13,21,34,55'
+			text: 'Fibonacci (0,1,2,3,5,8,13,21,34,55)',
+			value: VotingSystem.FIBONACCI,
+			key: `option-${VotingSystem.FIBONACCI}`
 		},
 		{
-			text: 'Modified Fibonacci',
-			key: 'modified-fibonacci',
-			value: '0,0.5,1,2,3,5,8,13,20,40'
+			text: 'Modified Fibonacci (0,0.5,1,2,3,5,8,13,20,40)',
+			value: VotingSystem.MODIFIED_FIBONACCI,
+			key: `option-${VotingSystem.MODIFIED_FIBONACCI}`
 		},
 		{
-			text: 'T-Shirt',
-			key: 't-shirt',
-			value: 'xxs,xs,s,m,l,xl,xxl'
+			text: 'T-Shirt (xxs,xs,s,m,l,xl,xxl)',
+			value: VotingSystem.T_SHIRT,
+			key: `option-${VotingSystem.T_SHIRT}`
 		}
 	];
 
@@ -72,7 +87,7 @@ export const New = () => {
 					<input
 						placeholder="Title..."
 						value={title}
-						onChange={handleChangeTitle}
+						onChange={handleTitleChanged}
 					></input>
 				</div>
 				<div>
@@ -80,14 +95,15 @@ export const New = () => {
 					<input
 						placeholder="Username..."
 						value={username}
-						onChange={handleChangeUsername}
+						onChange={handleUsernameChanged}
 					></input>
 				</div>
 				<div>
 					<DropDown
 						label="Voting System"
+						selected={voting}
 						options={votingOptions}
-						onChange={handleDropdownChanged}
+						onChange={handleVotingChanged}
 					></DropDown>
 				</div>
 			</div>
