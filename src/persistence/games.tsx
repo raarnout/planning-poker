@@ -15,7 +15,7 @@ const addGame = async (gameData: Game) => {
 	return newGameRef.key;
 };
 
-const isGameExists = async (gameKey: string) => {
+const isGameExisting = async (gameKey: string) => {
 	let isExisting = false;
 	await get(child(gamesRef, `/${gameKey}`))
 		.then(snapshot => {
@@ -27,4 +27,4 @@ const isGameExists = async (gameKey: string) => {
 	return isExisting;
 };
 
-export { addGame, isGameExists };
+export { addGame, isGameExisting };

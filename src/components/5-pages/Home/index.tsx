@@ -2,15 +2,8 @@ import { useNavigate, useParams } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import Button from '../../1-atoms/Button';
 import PokerGame from '../PokerGame';
-import { isGameExists } from '../../../persistence/games';
-
-enum PageState {
-	LOADING = 0,
-	NEW = 1,
-	EXISTING = 2,
-	ERROR = 3
-}
-
+import { isGameExisting } from '../../../persistence/games';
+import { PageState } from '../../../constants/enums/page-state';
 export const Home = () => {
 	const [pageState, setPageState] = useState(PageState.NEW);
 	const navigate = useNavigate();
@@ -28,7 +21,7 @@ export const Home = () => {
 		if (param?.id) {
 			setPageState(PageState.LOADING);
 			const fetchData = async () => {
-				const isExisting = await isGameExists(param.id as string);
+				const isExisting = await isGameExisting(param.id as string);
 				const pageState = isExisting ? PageState.EXISTING : PageState.NEW;
 				setPageState(pageState);
 				if (pageState === PageState.NEW) {
@@ -62,7 +55,7 @@ export const Home = () => {
 					case PageState.EXISTING:
 						return <PokerGame />;
 					case PageState.ERROR:
-						return <div>error</div>;
+						return <div>something went wrong</div>;
 				}
 			})()}
 		</section>
