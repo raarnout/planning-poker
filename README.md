@@ -9,23 +9,34 @@ Install the project via Yarn.
 
 ## Firebase data object
 ```
-	{
-		gameId: 'gameId#1',
-		votingSystem: [0,1,2,3,5,..]
-		users: [
-			{
-				id: 'id#1', 
-				userName:'Ronald',
-				role: 'HOST'
-			}
-		],
-		round: {
-			attendees: [
-				{ id: 'id#1', value: null },
-				{ id: 'id#1', value: 3 },
-			]
+{
+	gameId: 'gameId#1',
+	votingSystem: [0,1,2,3,5,..]
+	users: [
+		{
+			id: 'id#1', 
+			userName:'Ronald',
+			role: 'HOST'
+		},
+		{
+			id: 'id#2', 
+			userName:'Matthijs',
+			role: 'SPECTATOR'
+		},
+		{
+			id: 'id#3', 
+			userName:'Matthijs',
+			role: 'ATTENDEE'
 		}
+	],
+	activeRound: {
+		showCards: false,
+		users: [
+			{ id: 'id#1', value: null },
+			{ id: 'id#3', value: 3 },
+		]
 	}
+}
 ```
 
 ## Local Storage
